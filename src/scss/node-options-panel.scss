@@ -1,0 +1,48 @@
+.node-options-hidden-panel {
+
+  background: white;
+  color: black;
+  font-size: 20px;
+  height: 100%;
+  position: absolute;
+  left: -100%;
+  top: 0;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+  overflow-y: auto;
+
+  &.open-panel {
+    left: 0;
+  }
+
+  .hidden-panel-content {
+    padding: 80px 160px;
+  }
+
+  #node-editor {
+    width: 100%;
+    color: black;
+    font-size: 17px;
+
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: 0.1rem solid #d1d1d1;
+    border-radius: 0.4rem;
+    box-shadow: none;
+    box-sizing: inherit;
+    padding: 0.6rem 1rem 0.7rem;
+
+    .codex-editor__redactor {
+      padding-bottom: 0 !important;
+    }
+
+  }
+
+  .foot {
+    margin-top: 30px;
+    text-align: center;
+  }
+
+}
+
+

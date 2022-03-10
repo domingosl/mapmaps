@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="network" ng-controller="main">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Stress in human beings</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+
+    <link rel="stylesheet" href="./scss/network.scss">
+    <link rel="stylesheet" href="./scss/main.scss">
+
+    <script>
+        window.network = '<%= network %>'
+        window.options = '<%-JSON.stringify(options)%>';
+    </script>
+
+</head>
+<body>
+<div class="network-wrapper">
+
+    <div id="network"></div>
+    <div class="header">
+        <h1><%= title %></h1>
+        <button class="button button" ng-click="toggleDrawOptionsPanel()">Draw Options</button>
+    </div>
+    <div class="source">Source: <a target="_blank"><%= source.name %></a></div>
+
+</div>
+
+
+<div class="draw-options-hidden-panel" ng-class="{'open-panel': drawPanelIsOpen }">
+
+    <div class="hidden-panel-content">
+
+        <form>
+            <div><input type="checkbox" ng-model="formData.options.physics.enabled"> Physics</div>
+            <div><input type="checkbox" ng-model="formData.options.layout.hierarchical.enabled"> Hierarchical layout</div>
+            <div><input type="checkbox" ng-model="formData.edgesLabel" ng-change="toggleEdgesLabel()"> Relations label</div>
+            <button class="button button-outline" ng-click="redrawNetwork()">Redraw</button>
+        </form>
+
+    </div>
+</div>
+
+<div class="node-options-hidden-panel" ng-class="{'open-panel': nodePanelIsOpen }">
+
+    <div class="hidden-panel-content">
+
+        <label for="node-title">Title</label>
+        <input type="text" id="node-title" ng-model="formData.nodeTitle"/>
+        <label>Content</label>
+        <div id="node-editor"></div>
+
+        <div class="foot">
+            <a class="button" href="#" ng-click="saveNode()">Save</a>
+            <input class="button button-clear" value="Ignore changes" ng-click="closeNodeOptionsPanel()">
+        </div>
+
+        <input id="node-autocomplete" type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off">
+
+
+    </div>
+
+</div>
+
+
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+<script type="application/javascript"
+        src="https://visjs.github.io/vis-network/standalone/umd/vis-network.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js"></script>
+
+<script type="module" src="./js/network-app.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/css/autoComplete.min.css">
+
+<link rel="stylesheet" href="../node_modules/@sweetalert2/theme-dark/dark.css">
+<link rel="stylesheet" href="../node_modules/noty/lib/noty.css">
+<link rel="stylesheet" href="../node_modules/noty/lib/themes/sunset.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"
+        integrity="sha512-7oYXeK0OxTFxndh0erL8FsjGvrl2VMDor6fVqzlLGfwOQQqTbYsGPv4ZZ15QHfSk80doyaM0ZJdvkyDcVO7KFA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>

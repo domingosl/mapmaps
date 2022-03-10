@@ -1,0 +1,63 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  background: #111;
+  overflow: hidden;
+  font-family: Montserrat, serif;
+}
+
+.network-wrapper {
+
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+
+  .header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding: 10px 30px;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.8);
+
+    h1 {
+      color: white;
+      font-size: 25px;
+      float: left;
+      line-height: 40px;
+    }
+
+    button {
+      float: right;
+      margin-left: 10px;
+    }
+
+  }
+
+  .source {
+    position: fixed;
+    padding: 8px 20px;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 15px;
+    height: 35px;
+    text-align: right;
+
+    a {
+      text-decoration: none;
+      font-weight: bold;
+      color: white;
+    }
+
+  }
+
+  #network {
+    width: 100%;
+    height: 100%;
+  }
+
+}
+
