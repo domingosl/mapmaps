@@ -1,0 +1,19 @@
+#node-autocomplete {
+  color: white;
+}
+
+.autoComplete_wrapper {
+  ul {
+    list-style-type: none;
+  }
+
+  li {
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    background: white;
+    color: black;
+    cursor: pointer;
+  }
+
+}

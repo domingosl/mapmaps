@@ -1,6 +1,6 @@
 const axios = require('axios');
 const blockingLoader = require('./blocking-loader');
-const loginModal = require('../js/modals/login');
+const selectNodeModal = require('../js/modals/select-node');
 
 import EditorJS from "@editorjs/editorjs";
 import Header from "@editorjs/header";
@@ -36,6 +36,7 @@ angular.module('network', []).controller('main', async function ($scope, $timeou
 
         $scope.formData.nodeId = nodeId;
         $scope.formData.nodeTitle = response.name;
+        $scope.formData.nodeConnections = [];
 
         console.log(response);
 
@@ -54,31 +55,6 @@ angular.module('network', []).controller('main', async function ($scope, $timeou
             }
         });
 
-        const autoCompleteJS = new autoComplete({
-            selector: "#node-autocomplete",
-            placeHolder: "Search for node name...",
-            data: {
-                src: async (val) => {
-                    console.log(val);
-                    const response = await axios.get(process.env.API_BASEURL + '/nodes/search/' + val);
-                    return response.data.data.map(v => v.label);
-                },
-                cache: false
-            },
-            debounce: 100,
-            resultItem: {
-                highlight: {
-                    render: true
-                }
-            },
-            events: {
-                input: {
-                    selection: (event) => {
-                        autoCompleteJS.input.value = event.detail.selection.value;
-                    }
-                }
-            }
-        });
 
         $timeout(()=> $scope.nodePanelIsOpen = true, 0);
 
@@ -97,6 +73,23 @@ angular.module('network', []).controller('main', async function ($scope, $timeou
         blockingLoader.hide();
 
         $timeout($scope.closeNodeOptionsPanel, 0);
+
+    };
+
+    $scope.addNodeConnection = (direction) => {
+
+        selectNodeModal.show(null, (node)=>{
+
+            $timeout(()=>{
+                $scope.formData.nodeConnections.push({
+                    from: direction === 'from' ? $scope.formData.nodeTitle : node,
+                    to: direction === 'to' ? $scope.formData.nodeTitle : node,
+                    type: ''
+                })
+            });
+
+        })
+
 
     };
 

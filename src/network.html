@@ -37,8 +37,10 @@
 
         <form>
             <div><input type="checkbox" ng-model="formData.options.physics.enabled"> Physics</div>
-            <div><input type="checkbox" ng-model="formData.options.layout.hierarchical.enabled"> Hierarchical layout</div>
-            <div><input type="checkbox" ng-model="formData.edgesLabel" ng-change="toggleEdgesLabel()"> Relations label</div>
+            <div><input type="checkbox" ng-model="formData.options.layout.hierarchical.enabled"> Hierarchical layout
+            </div>
+            <div><input type="checkbox" ng-model="formData.edgesLabel" ng-change="toggleEdgesLabel()"> Relations label
+            </div>
             <button class="button button-outline" ng-click="redrawNetwork()">Redraw</button>
         </form>
 
@@ -49,17 +51,62 @@
 
     <div class="hidden-panel-content">
 
-        <label for="node-title">Title</label>
-        <input type="text" id="node-title" ng-model="formData.nodeTitle"/>
-        <label>Content</label>
+        <h2>Title</h2>
+        <input type="text" ng-model="formData.nodeTitle"/>
+
+        <br/><br/>
+        <h2>Content</h2>
         <div id="node-editor"></div>
+
+        <br/><br/>
+        <h2>Connections</h2>
+
+
+        <div ng-if="!formData.nodeConnections || formData.nodeConnections.length === 0">
+            This node has no connections
+        </div>
+
+        <div ng-if="formData.nodeConnections && formData.nodeConnections.length > 0">
+            <div class="row" ng-repeat="connection in formData.nodeConnections">
+
+                <div class="column column-30 elip">
+                    <label>From</label>
+                    <strong>{{connection.from}}</strong>
+                </div>
+                <div class="column column-30">
+                    <label>Type</label>
+                    <select ng-model="connection.type">
+                        <option>IMPLIES THAT</option>
+                        <option>CAN BE SOLVED BY</option>
+                        <option>CAN BE PARTIALLY SOLVED BY</option>
+                        <option>BUT THEN</option>
+                    </select>
+                </div>
+                <div class="column column-30 elip">
+                    <label>To</label>
+                    <strong>{{connection.to}}</strong>
+                </div>
+                <div class="column column-10 text-right">
+                    <br />
+                    <a href="#">X</a>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="text-center">
+            <br/>
+            <a href="#" ng-click="addNodeConnection('to')">Add new connection <strong>TO</strong> this NODE</a><br/>
+            <a href="#" ng-click="addNodeConnection('from')">Add new connection <strong>FROM</strong> this NODE</a>
+
+        </div>
+
 
         <div class="foot">
             <a class="button" href="#" ng-click="saveNode()">Save</a>
             <input class="button button-clear" value="Ignore changes" ng-click="closeNodeOptionsPanel()">
         </div>
-
-        <input id="node-autocomplete" type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off">
 
 
     </div>
@@ -74,7 +121,6 @@
 
 <script type="module" src="./js/network-app.js"></script>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/css/autoComplete.min.css">
 
 <link rel="stylesheet" href="../node_modules/@sweetalert2/theme-dark/dark.css">
 <link rel="stylesheet" href="../node_modules/noty/lib/noty.css">

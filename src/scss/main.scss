@@ -3,3 +3,31 @@
 @import "loader";
 @import "draw-options-panel";
 @import "node-options-panel";
+@import "auto-select";
+
+.swal2-popup {
+  font-size: large !important;
+}
+
+.swal2-html-container {
+  height: auto;
+  overflow: hidden !important;
+}
+
+.swal2-confirm {
+  line-height: initial;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.elip {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
