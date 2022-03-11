@@ -1,6 +1,7 @@
 const axios = require('axios');
 const blockingLoader = require('./blocking-loader');
 const selectNodeModal = require('../js/modals/select-node');
+const helpers = require('../js/helpers');
 
 import EditorJS from "@editorjs/editorjs";
 import Header from "@editorjs/header";
@@ -8,6 +9,8 @@ import List from "@editorjs/list";
 import Underline from "@editorjs/underline";
 import Table from "@editorjs/table";
 import Delimiter from "@editorjs/delimiter";
+
+import 'animate.css';
 
 angular.module('network', []).controller('main', async function ($scope, $timeout) {
 
@@ -35,14 +38,17 @@ angular.module('network', []).controller('main', async function ($scope, $timeou
         const response = (await axios.get(process.env.API_BASEURL + '/nodes/' + nodeId)).data.data;
 
         $scope.formData.nodeId = nodeId;
-        $scope.formData.nodeTitle = response.name;
+        $scope.formData.nodeTitle = helpers.capitalize(response.name);
         $scope.formData.nodeConnections = [];
 
         console.log(response);
 
+        const content = JSON.parse(response.content);
+
         nodeEditor = new EditorJS({
-            autofocus: true,
-            data: JSON.parse(response.content),
+            autofocus: false,
+            placeholder: "Tell the story of this node...",
+            data: Object.keys(content).length === 0 ? null : content,
             holder: "node-editor",
             onReady: () => {
             },
@@ -78,7 +84,7 @@ angular.module('network', []).controller('main', async function ($scope, $timeou
 
     $scope.addNodeConnection = (direction) => {
 
-        selectNodeModal.show(null, (node)=>{
+        selectNodeModal.show(null, direction === 'from' ? "To node" : "From node", (node)=>{
 
             $timeout(()=>{
                 $scope.formData.nodeConnections.push({

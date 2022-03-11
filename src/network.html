@@ -51,15 +51,11 @@
 
     <div class="hidden-panel-content">
 
-        <h2>Title</h2>
         <input type="text" ng-model="formData.nodeTitle"/>
 
-        <br/><br/>
-        <h2>Content</h2>
         <div id="node-editor"></div>
 
         <br/><br/>
-        <h2>Connections</h2>
 
 
         <div ng-if="!formData.nodeConnections || formData.nodeConnections.length === 0">
@@ -67,7 +63,7 @@
         </div>
 
         <div ng-if="formData.nodeConnections && formData.nodeConnections.length > 0">
-            <div class="row" ng-repeat="connection in formData.nodeConnections">
+            <div class="row connection animate__animated animate__bounce" ng-repeat="connection in formData.nodeConnections">
 
                 <div class="column column-30 elip">
                     <label>From</label>

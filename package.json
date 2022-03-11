@@ -9,8 +9,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@editorjs/delimiter": "1.2.0",
+    "@editorjs/editorjs": "2.23.2",
+    "@editorjs/header": "2.6.2",
+    "@editorjs/list": "1.6.2",
+    "@editorjs/quote": "2.4.0",
+    "@editorjs/table": "2.0.1",
+    "@editorjs/underline": "1.0.0",
     "@growishpay/service-utilities": "git+https://github.com/Growish/service-utilities.git",
     "@sweetalert2/theme-dark": "^5.0.10",
+    "animate.css": "^4.1.1",
     "axios": "^0.26.0",
     "body-parser": "^1.19.2",
     "cors": "^2.8.5",
@@ -20,14 +28,7 @@
     "glob": "^7.2.0",
     "neo4j-driver": "^4.4.3",
     "noty": "^3.2.0-beta-deprecated",
-    "sweetalert2": "^11.4.4",
-    "@editorjs/delimiter": "1.2.0",
-    "@editorjs/editorjs": "2.23.2",
-    "@editorjs/header": "2.6.2",
-    "@editorjs/list": "1.6.2",
-    "@editorjs/quote": "2.4.0",
-    "@editorjs/table": "2.0.1",
-    "@editorjs/underline": "1.0.0"
+    "sweetalert2": "^11.4.4"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.3.2",

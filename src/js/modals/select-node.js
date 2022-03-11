@@ -1,16 +1,17 @@
 const Swal = require('sweetalert2');
 const axios = require("axios");
 
-module.exports.show = async (universe, cb) => {
+module.exports.show = async (universe, title, cb) => {
 
 
     await Swal.fire({
+        title,
         allowEnterKey: false,
         showCloseButton: false,
         showCancelButton: false,
         showConfirmButton: false,
         html: `      
-      <p>Type the name of the node</p>
+        <p>Type the name of the node</p>
         <input id="node-autocomplete" type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off">
 
     `,
