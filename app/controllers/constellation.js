@@ -10,7 +10,16 @@ const constellations = {
             url: "http://encyclopedia.uia.org/"
         },
         options: require('../constellation-defaults/stress-humans')
+    },
+    "human-disease-disability": {
+        title: "Human disease and disability",
+        source: {
+            name: "UIA",
+            url: "http://encyclopedia.uia.org/"
+        },
+        options: require('../constellation-defaults/human-disease')
     }
+
 }
 
 app.get('/constellations/:name', (req, res) => {

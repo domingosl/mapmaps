@@ -123,6 +123,8 @@ angular.module('constellation', []).controller('main', async function ($scope, $
 
     function draw() {
 
+        //blockingLoader.show();
+
         constellation = new vis.Network(container, data, $scope.formData.options);
 
         constellation.on("stabilizationProgress", function (params) {
@@ -136,6 +138,10 @@ angular.module('constellation', []).controller('main', async function ($scope, $
         constellation.on("selectNode", function (event) {
             console.log(event.nodes);
             $timeout(() => $scope.openNodeOptionsPanel(event.nodes[0]), 0);
+        });
+
+        constellation.on("doubleClick", function (e) {
+            //alert("ddd")
         });
 
     }

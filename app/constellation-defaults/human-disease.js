@@ -5,7 +5,7 @@ module.exports = {
         mass: 4,
         font: {
             color: '#ffffff',
-            size: 20, // px
+            size: 25, // px
             face: 'Montserrat',
             //align: 'center'
         }
@@ -35,14 +35,13 @@ module.exports = {
     },
     edges: {
         width: 3,
+        physics: true,
         selectionWidth: 10,
-        smooth: {
-            type: "continuous",
-        },
+
         font: {
             color: '#aaa',
             strokeWidth: 0,
-            size: 15, // px
+            size: 10, // px
             face: 'Montserrat',
             //align: 'center'
         }
