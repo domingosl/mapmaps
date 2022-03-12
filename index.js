@@ -52,7 +52,7 @@ app.get('/', (req, res)=>{
     res.render('index', {});
 });
 
-require('./app/controllers/network');
+require('./app/controllers/constellation');
 
 app.listen(process.env.APP_PORT, () => {
     utilities.logger.info("APP Server ready!", {tagLabel, port: process.env.APP_PORT});

@@ -12,7 +12,7 @@ import Delimiter from "@editorjs/delimiter";
 
 import 'animate.css';
 
-angular.module('network', []).controller('main', async function ($scope, $timeout) {
+angular.module('constellation', []).controller('main', async function ($scope, $timeout) {
 
     blockingLoader.show();
     blockingLoader.setProgress(0);
@@ -39,9 +39,8 @@ angular.module('network', []).controller('main', async function ($scope, $timeou
 
         $scope.formData.nodeId = nodeId;
         $scope.formData.nodeTitle = helpers.capitalize(response.name);
-        $scope.formData.nodeConnections = [];
+        $scope.formData.nodeEdges = response.edges;
 
-        console.log(response);
 
         const content = JSON.parse(response.content);
 
@@ -74,7 +73,8 @@ angular.module('network', []).controller('main', async function ($scope, $timeou
         blockingLoader.show();
         await axios.put(process.env.API_BASEURL + '/nodes/' + $scope.formData.nodeId, {
             name: $scope.formData.nodeTitle,
-            content: JSON.stringify(await nodeEditor.save())
+            content: JSON.stringify(await nodeEditor.save()),
+            edges: $scope.formData.nodeEdges
         });
         blockingLoader.hide();
 
@@ -82,14 +82,18 @@ angular.module('network', []).controller('main', async function ($scope, $timeou
 
     };
 
-    $scope.addNodeConnection = (direction) => {
+    $scope.removeEdge = async (index) => {
+        $scope.formData.nodeEdges.splice(index, 1);
+    };
+
+    $scope.addNodeEdge = (direction) => {
 
         selectNodeModal.show(null, direction === 'from' ? "To node" : "From node", (node)=>{
 
             $timeout(()=>{
-                $scope.formData.nodeConnections.push({
-                    from: direction === 'from' ? $scope.formData.nodeTitle : node,
-                    to: direction === 'to' ? $scope.formData.nodeTitle : node,
+                $scope.formData.nodeEdges.push({
+                    from: direction === 'from' ? { name: $scope.formData.nodeTitle, id: $scope.formData.nodeId} : { id: node.id, name: node.label },
+                    to: direction === 'to' ? { name: $scope.formData.nodeTitle, id: $scope.formData.nodeId} : { id: node.id, name: node.label },
                     type: ''
                 })
             });
@@ -99,19 +103,19 @@ angular.module('network', []).controller('main', async function ($scope, $timeou
 
     };
 
-    const response = (await axios.get(process.env.API_BASEURL + '/networks/' + window.network)).data.data;
+    const response = (await axios.get(process.env.API_BASEURL + '/constellations/' + window.constellation)).data.data;
 
     const nodes = new vis.DataSet(response.nodes);
     const edges = new vis.DataSet(response.edges);
 
-    const container = document.getElementById("network");
+    const container = document.getElementById("constellation");
 
     const data = {
         nodes: nodes,
         edges: edges,
     };
 
-    let network;
+    let constellation;
     const options = JSON.parse(window.options);
 
     $scope.formData = { options };
@@ -119,17 +123,17 @@ angular.module('network', []).controller('main', async function ($scope, $timeou
 
     function draw() {
 
-        network = new vis.Network(container, data, $scope.formData.options);
+        constellation = new vis.Network(container, data, $scope.formData.options);
 
-        network.on("stabilizationProgress", function (params) {
+        constellation.on("stabilizationProgress", function (params) {
             blockingLoader.setProgress(Math.round(100 * params.iterations / params.total));
         });
 
-        network.once("stabilizationIterationsDone", function () {
+        constellation.once("stabilizationIterationsDone", function () {
             blockingLoader.hide();
         });
 
-        network.on("selectNode", function (event) {
+        constellation.on("selectNode", function (event) {
             console.log(event.nodes);
             $timeout(() => $scope.openNodeOptionsPanel(event.nodes[0]), 0);
         });
@@ -138,7 +142,7 @@ angular.module('network', []).controller('main', async function ($scope, $timeou
 
     draw();
 
-    $scope.redrawNetwork = () => $timeout(draw, 0);
+    $scope.redrawConstellation = () => $timeout(draw, 0);
 
     $scope.toggleEdgesLabel = () => $scope.formData.options.edges.font.size = $scope.formData.edgesLabel ? 15 : 0;
 

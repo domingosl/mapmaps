@@ -29,6 +29,14 @@
 
   .connection {
     margin-top: 10px;
+    border-radius: 10px;
+    padding: 5px 15px;
+    background: #f9f9f9;
+
+    .delete {
+      padding: 25px 0;
+    }
+
   }
 
   #node-editor {

@@ -3,13 +3,13 @@ const dbSession = utilities.dependencyLocator.get('dbSession');
 new utilities.express
     .Service('getGlobalMap')
     .isGet()
-    .respondsAt('/networks/:universe')
+    .respondsAt('/constellations/:constellation')
     .controller(async (req, res) => {
 
         const nodes = [];
         const edges = [];
 
-        let response = await dbSession.run('MATCH (problem:PROBLEM { universe: $universe }) RETURN problem, size((problem)-[]->()) as size', { universe: req.params.universe });
+        let response = await dbSession.run('MATCH (problem:PROBLEM { constellation: $constellation }) RETURN problem, size((problem)-[]->()) as size', { constellation: req.params.constellation });
 
         //TODO: MANAGE SOLUTIONS TOO!
 
@@ -29,7 +29,7 @@ new utilities.express
         }));
 
 
-        response = await dbSession.run('MATCH (:PROBLEM { universe: $universe })-[edge]->(:PROBLEM { universe: $universe }) RETURN edge', { universe: req.params.universe });
+        response = await dbSession.run('MATCH (:PROBLEM { constellation: $constellation })-[edge]->(:PROBLEM { constellation: $constellation }) RETURN edge', { constellation: req.params.constellation });
 
         (response.records.map(record => {
             const obj = record.toObject().edge;

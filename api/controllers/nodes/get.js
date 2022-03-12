@@ -1,4 +1,5 @@
 const dbSession = utilities.dependencyLocator.get('dbSession');
+const getNodeEdgesById = utilities.dependencyLocator.get('getNodeEdgesById');
 
 new utilities.express
     .Service('getNode')
@@ -17,21 +18,6 @@ new utilities.express
         const isProblem = nodeObj.node.labels.indexOf('PROBLEM') >= 0;
 
 
-        response = await dbSession.run('MATCH (node)-[edge]-() WHERE id(node) = $id RETURN edge', {id: parseInt(req.params.id)});
-
-        const edges = [];
-        response.records.forEach(r => {
-
-            const edgeObj = r.toObject().edge;
-
-            edges.push({
-                from: edgeObj.start.toNumber(),
-                to: edgeObj.end.toNumber(),
-                type: edgeObj.type
-            });
-
-        })
-
         res.resolve({
             id: nodeObj.node.identity.toNumber(),
             name: nodeObj.node.properties.name,
@@ -39,7 +25,7 @@ new utilities.express
             color: "#efb725",
             type: isProblem ? 0 : 1, //0: problem
             group: isProblem ? 0 : 1,
-            edges
+            edges: await getNodeEdgesById(req.params.id)
         });
 
     });

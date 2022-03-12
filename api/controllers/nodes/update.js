@@ -1,4 +1,5 @@
 const dbSession = utilities.dependencyLocator.get('dbSession');
+const getNodeEdgesById = utilities.dependencyLocator.get('getNodeEdgesById');
 
 new utilities.express
     .Service('getNode')
@@ -11,6 +12,20 @@ new utilities.express
             name: req.body.name,
             content: req.body.content
         });
+
+        //TODO: Need a less "aggressive" way of updating edges
+        await dbSession.run('MATCH (node)-[r]-() WHERE id(node) = $id DELETE r', { id: parseInt(req.params.id) });
+
+        for(let edge of req.body.edges) {
+
+            await dbSession
+                .run('MATCH (nodeA) MATCH(nodeB) WHERE id(nodeB) = $nodeBId AND id(nodeA) = $nodeAId MERGE(nodeA)-[:' + edge.type + ']->(nodeB)',
+                    {
+                        nodeAId: edge.from.id,
+                        nodeBId: edge.to.id
+                    });
+        }
+
 
         res.resolve();
 

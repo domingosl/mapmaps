@@ -1,4 +1,4 @@
-const networks = {
+const constellations = {
     world: {
         title: "The world map of humanity problems",
         source: { name: null, url: null }
@@ -9,16 +9,16 @@ const networks = {
             name: "UIA",
             url: "http://encyclopedia.uia.org/"
         },
-        options: require('../network-defaults/stress-humans')
+        options: require('../constellation-defaults/stress-humans')
     }
 }
 
-app.get('/networks/:name', (req, res) => {
+app.get('/constellations/:name', (req, res) => {
 
-    const network = networks[req.params.name];
+    const constellation = constellations[req.params.name];
 
-    if(!network)
+    if(!constellation)
         return res.render('not-found');
 
-    res.render('network', {network: req.params.name, ...network});
+    res.render('constellation', {constellation: req.params.name, ...constellation});
 });

@@ -23,12 +23,16 @@ module.exports.show = async (universe, title, cb) => {
                 data: {
                     src: async (val) => {
                         const response = await axios.get(process.env.API_BASEURL + '/nodes/search/' + val);
-                        return response.data.data.map(v => v.label);
+                        return response.data.data;
                     },
-                    cache: false
+                    cache: false,
+                    keys: ['label'],
                 },
                 debounce: 100,
                 resultItem: {
+                    element: (item, data)=>{
+                        item.innerHTML = data.match;
+                    },
                     highlight: {
                         render: true
                     }

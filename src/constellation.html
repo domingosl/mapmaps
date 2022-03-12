@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="network" ng-controller="main">
+<html lang="en" ng-app="constellation" ng-controller="main">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,19 +9,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
 
-    <link rel="stylesheet" href="./scss/network.scss">
+    <link rel="stylesheet" href="./scss/constellation.scss">
     <link rel="stylesheet" href="./scss/main.scss">
 
     <script>
-        window.network = '<%= network %>'
+        window.constellation = '<%= constellation %>'
         window.options = '<%-JSON.stringify(options)%>';
     </script>
 
 </head>
 <body>
-<div class="network-wrapper">
+<div class="constellation-wrapper">
 
-    <div id="network"></div>
+    <div id="constellation"></div>
     <div class="header">
         <h1><%= title %></h1>
         <button class="button button" ng-click="toggleDrawOptionsPanel()">Draw Options</button>
@@ -41,7 +41,7 @@
             </div>
             <div><input type="checkbox" ng-model="formData.edgesLabel" ng-change="toggleEdgesLabel()"> Relations label
             </div>
-            <button class="button button-outline" ng-click="redrawNetwork()">Redraw</button>
+            <button class="button button-outline" ng-click="redrawConstellation()">Redraw</button>
         </form>
 
     </div>
@@ -58,33 +58,33 @@
         <br/><br/>
 
 
-        <div ng-if="!formData.nodeConnections || formData.nodeConnections.length === 0">
+        <div ng-if="!formData.nodeEdges || formData.nodeEdges.length === 0">
             This node has no connections
         </div>
 
-        <div ng-if="formData.nodeConnections && formData.nodeConnections.length > 0">
-            <div class="row connection animate__animated animate__bounce" ng-repeat="connection in formData.nodeConnections">
+        <div ng-if="formData.nodeEdges && formData.nodeEdges.length > 0">
+            <div class="row connection animate__animated animate__bounce" ng-repeat="edge in formData.nodeEdges track by $index">
 
                 <div class="column column-30 elip">
                     <label>From</label>
-                    <strong>{{connection.from}}</strong>
+                    <strong>{{edge.from.name}}</strong>
                 </div>
                 <div class="column column-30">
                     <label>Type</label>
-                    <select ng-model="connection.type">
-                        <option>IMPLIES THAT</option>
-                        <option>CAN BE SOLVED BY</option>
-                        <option>CAN BE PARTIALLY SOLVED BY</option>
-                        <option>BUT THEN</option>
+                    <select ng-model="edge.type">
+                        <option value="IMPLIES_THAT">IMPLIES THAT</option>
+                        <option value="SOLVED_BY">SOLVED BY</option>
+                        <option value="PARTIALLY_SOLVED_BY">PARTIALLY SOLVED BY</option>
+                        <option value="CAN_CAUSE">CAN CAUSE</option>
+                        <option value="CAUSES">CAUSES</option>
                     </select>
                 </div>
                 <div class="column column-30 elip">
                     <label>To</label>
-                    <strong>{{connection.to}}</strong>
+                    <strong>{{edge.to.name}}</strong>
                 </div>
-                <div class="column column-10 text-right">
-                    <br />
-                    <a href="#">X</a>
+                <div class="column column-10 text-right delete">
+                    <a href="#" ng-click="removeEdge($index)">X</a>
                 </div>
 
 
@@ -93,8 +93,8 @@
 
         <div class="text-center">
             <br/>
-            <a href="#" ng-click="addNodeConnection('to')">Add new connection <strong>TO</strong> this NODE</a><br/>
-            <a href="#" ng-click="addNodeConnection('from')">Add new connection <strong>FROM</strong> this NODE</a>
+            <a href="#" ng-click="addNodeEdge('to')">Add new connection <strong>TO</strong> this NODE</a><br/>
+            <a href="#" ng-click="addNodeEdge('from')">Add new connection <strong>FROM</strong> this NODE</a>
 
         </div>
 
@@ -115,7 +115,7 @@
         src="https://visjs.github.io/vis-network/standalone/umd/vis-network.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js"></script>
 
-<script type="module" src="./js/network-app.js"></script>
+<script type="module" src="./js/constellation-app.js"></script>
 
 
 <link rel="stylesheet" href="../node_modules/@sweetalert2/theme-dark/dark.css">
