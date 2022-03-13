@@ -1,5 +1,4 @@
 const dbSession = utilities.dependencyLocator.get('dbSession');
-const getNodeEdgesById = utilities.dependencyLocator.get('getNodeEdgesById');
 
 new utilities.express
     .Service('saveNode')
@@ -7,7 +6,7 @@ new utilities.express
     .respondsAt('/nodes')
     .controller(async (req, res) => {
 
-        const label = req.body.type === 0 ? 'PROBLEM' : 'SOLUTION';
+        const label = req.body.type === '0' ? 'PROBLEM' : 'SOLUTION';
 
         const response = await dbSession.run('CREATE (n:' + label + ' $data) RETURN n', {
             data: {
