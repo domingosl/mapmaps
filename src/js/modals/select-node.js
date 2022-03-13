@@ -1,7 +1,7 @@
 const Swal = require('sweetalert2');
 const axios = require("axios");
 
-module.exports.show = async (universe, title, cb) => {
+module.exports.show = async (constellation = "", title, cb) => {
 
 
     await Swal.fire({
@@ -22,7 +22,7 @@ module.exports.show = async (universe, title, cb) => {
                 placeHolder: "Search for node name...",
                 data: {
                     src: async (val) => {
-                        const response = await axios.get(process.env.API_BASEURL + '/nodes/search/' + val);
+                        const response = await axios.get(process.env.API_BASEURL + '/nodes/search/' + val + '?constellation=' + constellation);
                         return response.data.data;
                     },
                     cache: false,

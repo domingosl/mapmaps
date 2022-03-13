@@ -9,19 +9,19 @@ new utilities.express
         const nodes = [];
         const edges = [];
 
-        let response = await dbSession.run('MATCH (problem:PROBLEM { constellation: $constellation }) RETURN problem, size((problem)-[]->()) as size', { constellation: req.params.constellation });
-
-        //TODO: MANAGE SOLUTIONS TOO!
+        let response = await dbSession.run('MATCH (n { constellation: $constellation }) RETURN n, size((n)-[]->()) as size', { constellation: req.params.constellation });
 
         (response.records.map(record => {
             const obj = record.toObject();
 
+            const isProblem = obj.n.labels.indexOf('PROBLEM') >= 0;
+
             nodes.push({
-                id: obj.problem.identity.toNumber(),
-                label: obj.problem.properties.name,
-                color: "#efb725",
+                id: obj.n.identity.toNumber(),
+                label: obj.n.properties.name,
+                color: isProblem ? "#efb725" : "#00d500",
                 value: obj.size.toNumber(),
-                type: 0, //0: problem
+                type: isProblem ? 0 : 1,
                 group: 0
             });
 
@@ -29,7 +29,7 @@ new utilities.express
         }));
 
 
-        response = await dbSession.run('MATCH (:PROBLEM { constellation: $constellation })-[edge]->(:PROBLEM { constellation: $constellation }) RETURN edge', { constellation: req.params.constellation });
+        response = await dbSession.run('MATCH (n { constellation: $constellation })-[edge]->(nn { constellation: $constellation }) RETURN edge', { constellation: req.params.constellation });
 
         (response.records.map(record => {
             const obj = record.toObject().edge;
@@ -39,7 +39,11 @@ new utilities.express
                 from: obj.start.toNumber(),
                 to: obj.end.toNumber(),
                 label: obj.type,
-                arrows: 'to'
+                arrows: 'to',
+                color: 'rgba(255,255,255, .35)',
+                shadow: {
+                    color: 'rgba(0,0,0, .35)'
+                }
             });
 
             return obj;

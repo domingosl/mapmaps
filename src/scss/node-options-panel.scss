@@ -17,6 +17,20 @@
 
   .hidden-panel-content {
     padding: 80px 250px;
+    max-width: 1150px;
+    margin: 0 auto;
+  }
+
+  @media only screen and (max-width: 890px) {
+    .hidden-panel-content {
+      padding: 80px 100px;
+    }
+  }
+
+  @media only screen and (max-width: 670px) {
+    .hidden-panel-content {
+      padding: 80px 20px;
+    }
   }
 
   input[type="text"] {

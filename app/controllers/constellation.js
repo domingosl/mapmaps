@@ -1,7 +1,8 @@
 const constellations = {
     world: {
         title: "The world map of humanity problems",
-        source: { name: null, url: null }
+        source: { name: null, url: null },
+        options: require('../constellation-defaults/world')
     },
     "human-stress": {
         title: "Stress disorders in human beings",

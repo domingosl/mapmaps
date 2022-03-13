@@ -1,6 +1,7 @@
 const axios = require('axios');
 const blockingLoader = require('./blocking-loader');
 const selectNodeModal = require('../js/modals/select-node');
+const confirmModal = require('../js/modals/confirm-dialog');
 const helpers = require('../js/helpers');
 
 import EditorJS from "@editorjs/editorjs";
@@ -35,14 +36,26 @@ angular.module('constellation', []).controller('main', async function ($scope, $
 
         blockingLoader.show();
 
-        const response = (await axios.get(process.env.API_BASEURL + '/nodes/' + nodeId)).data.data;
+        let content;
 
-        $scope.formData.nodeId = nodeId;
-        $scope.formData.nodeTitle = helpers.capitalize(response.name);
-        $scope.formData.nodeEdges = response.edges;
+        if(nodeId) {
+
+            const response = (await axios.get(process.env.API_BASEURL + '/nodes/' + nodeId)).data.data;
+
+            $scope.formData.nodeId = nodeId;
+            $scope.formData.nodeTitle = helpers.capitalize(response.name);
+            $scope.formData.nodeEdges = response.edges;
+            content = JSON.parse(response.content);
+            $scope.formData.nodeType = response.type;
+        }
+        else {
+            $scope.formData.nodeId = null;
+            $scope.formData.nodeTitle = "";
+            $scope.formData.nodeEdges = [];
+            content = {};
+        }
 
 
-        const content = JSON.parse(response.content);
 
         nodeEditor = new EditorJS({
             autofocus: false,
@@ -71,14 +84,37 @@ angular.module('constellation', []).controller('main', async function ($scope, $
     $scope.saveNode = async () => {
 
         blockingLoader.show();
-        await axios.put(process.env.API_BASEURL + '/nodes/' + $scope.formData.nodeId, {
-            name: $scope.formData.nodeTitle,
-            content: JSON.stringify(await nodeEditor.save()),
-            edges: $scope.formData.nodeEdges
-        });
+
+        if($scope.formData.nodeId)
+            await axios.put(process.env.API_BASEURL + '/nodes/' + $scope.formData.nodeId, {
+                name: $scope.formData.nodeTitle,
+                content: JSON.stringify(await nodeEditor.save()),
+                edges: $scope.formData.nodeEdges,
+                constellation: window.constellation
+            });
+        else
+            await axios.post(process.env.API_BASEURL + '/nodes/', {
+                name: $scope.formData.nodeTitle,
+                content: JSON.stringify(await nodeEditor.save()),
+                edges: $scope.formData.nodeEdges,
+                constellation: window.constellation,
+                type: $scope.formData.nodeType
+            });
+
         blockingLoader.hide();
 
-        $timeout($scope.closeNodeOptionsPanel, 0);
+        $timeout(()=>{ $scope.closeNodeOptionsPanel(); $scope.redrawConstellation(); }, 0);
+
+    };
+
+    $scope.deleteNode = () => {
+
+        confirmModal.show(async ()=>{
+            blockingLoader.show();
+            await axios.delete(process.env.API_BASEURL + '/nodes/' + $scope.formData.nodeId);
+            $scope.closeNodeOptionsPanel();
+            $scope.redrawConstellation();
+        });
 
     };
 
@@ -88,7 +124,7 @@ angular.module('constellation', []).controller('main', async function ($scope, $
 
     $scope.addNodeEdge = (direction) => {
 
-        selectNodeModal.show(null, direction === 'from' ? "To node" : "From node", (node)=>{
+        selectNodeModal.show(window.constellation, direction === 'from' ? "To node" : "From node", (node)=>{
 
             $timeout(()=>{
                 $scope.formData.nodeEdges.push({
@@ -103,27 +139,32 @@ angular.module('constellation', []).controller('main', async function ($scope, $
 
     };
 
-    const response = (await axios.get(process.env.API_BASEURL + '/constellations/' + window.constellation)).data.data;
+    $scope.redrawConstellation = () => $timeout(draw, 0);
 
-    const nodes = new vis.DataSet(response.nodes);
-    const edges = new vis.DataSet(response.edges);
+    $scope.toggleEdgesLabel = () => $scope.formData.options.edges.font.size = $scope.formData.edgesLabel ? 15 : 0;
 
-    const container = document.getElementById("constellation");
 
-    const data = {
-        nodes: nodes,
-        edges: edges,
-    };
+    async function draw() {
 
-    let constellation;
-    const options = JSON.parse(window.options);
+        blockingLoader.show();
 
-    $scope.formData = { options };
-    $scope.formData.edgesLabel = !!$scope.formData.options.edges.font.size;
+        const response = (await axios.get(process.env.API_BASEURL + '/constellations/' + window.constellation)).data.data;
 
-    function draw() {
+        const nodes = new vis.DataSet(response.nodes);
+        const edges = new vis.DataSet(response.edges);
 
-        //blockingLoader.show();
+        const container = document.getElementById("constellation");
+
+        const data = {
+            nodes: nodes,
+            edges: edges,
+        };
+
+        let constellation;
+        const options = JSON.parse(window.options);
+
+        $scope.formData = { options };
+        $scope.formData.edgesLabel = !!$scope.formData.options.edges.font.size;
 
         constellation = new vis.Network(container, data, $scope.formData.options);
 
@@ -135,22 +176,22 @@ angular.module('constellation', []).controller('main', async function ($scope, $
             blockingLoader.hide();
         });
 
-        constellation.on("selectNode", function (event) {
-            console.log(event.nodes);
-            $timeout(() => $scope.openNodeOptionsPanel(event.nodes[0]), 0);
+        constellation.once("afterDrawing", function () {
+            blockingLoader.hide();
         });
 
-        constellation.on("doubleClick", function (e) {
-            //alert("ddd")
+
+
+        constellation.on("doubleClick", function (event) {
+            if(!event.nodes[0])
+                $timeout(() => $scope.openNodeOptionsPanel(), 0);
+            else
+                $timeout(() => $scope.openNodeOptionsPanel(event.nodes[0]), 0);
         });
 
     }
 
     draw();
-
-    $scope.redrawConstellation = () => $timeout(draw, 0);
-
-    $scope.toggleEdgesLabel = () => $scope.formData.options.edges.font.size = $scope.formData.edgesLabel ? 15 : 0;
 
 
 });

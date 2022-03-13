@@ -6,7 +6,18 @@ new utilities.express
     .respondsAt('/nodes/search/:name')
     .controller(async (req, res) => {
 
-        let response = await dbSession.run('MATCH (n) WHERE n.name CONTAINS $name RETURN n LIMIT 5', { name: req.params.name.toLowerCase() });
+        const constellation = req.query.constellation || null;
+
+        let response;
+
+        if(!constellation)
+            response = await dbSession.run('MATCH (n) WHERE n.name CONTAINS $name RETURN n LIMIT 5', { name: req.params.name.toLowerCase() });
+        else
+            response = await dbSession.run('MATCH (n) WHERE n.constellation = $constellation AND n.name CONTAINS $name RETURN n LIMIT 5',
+                {
+                    name: req.params.name.toLowerCase(),
+                    constellation
+                });
 
         const nodes = [];
 

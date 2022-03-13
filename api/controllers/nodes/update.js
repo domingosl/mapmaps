@@ -2,14 +2,14 @@ const dbSession = utilities.dependencyLocator.get('dbSession');
 const getNodeEdgesById = utilities.dependencyLocator.get('getNodeEdgesById');
 
 new utilities.express
-    .Service('getNode')
+    .Service('updateNode')
     .isPut()
     .respondsAt('/nodes/:id')
     .controller(async (req, res) => {
 
         await dbSession.run('MATCH (n) WHERE id(n) = $id SET n.name = $name, n.content = $content RETURN n', {
             id: parseInt(req.params.id),
-            name: req.body.name,
+            name: req.body.name.toLowerCase(),
             content: req.body.content
         });
 

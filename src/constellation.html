@@ -26,8 +26,9 @@
         <h1><%= title %></h1>
         <button class="button button" ng-click="toggleDrawOptionsPanel()">Draw Options</button>
     </div>
+    <% if(source.name){ %>
     <div class="source">Source: <a target="_blank"><%= source.name %></a></div>
-
+    <% } %>
 </div>
 
 
@@ -51,14 +52,25 @@
 
     <div class="hidden-panel-content">
 
-        <input type="text" ng-model="formData.nodeTitle"/>
+        <div ng-if="!formData.nodeId">
+            <label>Type</label>
+            <select ng-model="formData.nodeType">
+                <option value="0">Problem</option>
+                <option value="1">Solution</option>
+            </select>
+        </div>
+        <label ng-if="formData.nodeId">
+            <strong>{{formData.nodeType === 0 ? 'Problem' : 'Solution'}}</strong>
+        </label>
+
+        <input type="text" ng-model="formData.nodeTitle" placeholder="Node title" maxlength="60"/>
 
         <div id="node-editor"></div>
 
         <br/><br/>
 
 
-        <div ng-if="!formData.nodeEdges || formData.nodeEdges.length === 0">
+        <div class="text-center" ng-if="!formData.nodeEdges || formData.nodeEdges.length === 0">
             This node has no connections
         </div>
 
@@ -102,6 +114,8 @@
         <div class="foot">
             <a class="button" href="#" ng-click="saveNode()">Save</a>
             <input class="button button-clear" value="Ignore changes" ng-click="closeNodeOptionsPanel()">
+            <br />
+            <a href="#" ng-click="deleteNode()">Delete this node</a>
         </div>
 
 
