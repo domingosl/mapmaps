@@ -1,0 +1,10 @@
+.idea
+node_modules
+logs
+.DS_Store
+application-state.json
+tmp
+nginx_data
+nginx_letsencrypt
+docker-compose.yml
+public

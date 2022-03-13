@@ -120,3 +120,6 @@ dist
 public
 application-state.json
 
+nginx_data
+nginx_letsencrypt
+

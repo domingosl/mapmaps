@@ -1,0 +1,23 @@
+version: '3'
+services:
+
+  app:
+    container_name: constellapedia-app
+    restart: unless-stopped
+    build: .
+    ports:
+      - '3214:3214'
+      - '3215:3215'
+      - '3216:3216'
+
+  nginx_proxy_manager:
+    container_name: constellapedia-nginx-proxy-manager
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - ./nginx_data:/data
+      - ./nginx_letsencrypt:/etc/letsencrypt
