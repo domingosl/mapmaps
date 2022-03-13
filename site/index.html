@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- ===============================================-->
+    <!--    Document Title-->
+    <!-- ===============================================-->
+    <title>Constellapedia</title>
+
+
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon-32x32.png">
+
+
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link rel="stylesheet" crossorigin="anonymous"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+          integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==">
+    <link href="assets/css/theme.css" rel="stylesheet"/>
+
+    <link href="vendors/swiper/swiper-bundle.min.css" rel="stylesheet">
+</head>
+
+
+<body>
+
+<!-- ===============================================-->
+<!--    Main Content-->
+<!-- ===============================================-->
+<main class="main" id="top">
+    <div id="particles-js"></div>
+    <nav class="navbar navbar-light sticky-top" data-navbar-darken-on-scroll="900">
+        <div class="container pt-2"><a class="navbar-brand" href="index.html"> <img
+                src="assets/img/gallery/logotipo.png" alt="..."/></a>
+            <div class="navbar-nav ms-auto">
+                <a href="https://devpost.com/software/constellapedia" target="_blank" class="btn btn-secondary">Devpost submission</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- ============================================-->
+    <!-- <section> begin ============================-->
+    <section class="mt-6">
+
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-9 col-lg-8 col-xl-5">
+                    <h1 class="display-3 lh-sm">Humanity's constellations of problems</h1>
+                </div>
+                <div class="col-md-9 col-xl-5">
+                    <p class="fs-2">Welcome to the public alpha of <strong>Constellapedia</strong>, an open source
+                        collaborative encyclopedia for mapping problems through crowdsourcing and crowdfunding.</p>
+                    <button class="btn btn-info">Play in the sandbox <span class="fas fa-arrow-right"></span></button>
+                    <br/>or <a href="#featured-constellations">Explore featured constellations</a>
+                </div>
+            </div>
+        </div>
+        <!-- end of .container-->
+
+    </section>
+    <!-- <section> close ============================-->
+    <!-- ============================================-->
+
+
+    <!-- ============================================-->
+    <!-- <section> begin ============================-->
+    <section>
+
+        <div class="container text-center">
+            <video autoplay loop muted poster="media/image/road.jpg" id="background">
+                <source src="assets/video/constellapedia.mp4" type="video/mp4">
+                <source src="media/video/road.webm" type="video/webm">
+                <source src="media/video/road.ogv" type="video/ogg">
+            </video>
+        </div>
+        <!-- end of .container-->
+
+    </section>
+    <!-- <section> close ============================-->
+    <!-- ============================================-->
+
+
+    <!-- ============================================-->
+    <!-- <section> begin ============================-->
+    <section>
+
+        <div class="container">
+
+            <h1 id="featured-constellations" class="display-6 fw-semi-bold">Featured constellations</h1>
+            <p class="fs-2">This are some of the constellations of problems featured by Constellapedia.</p>
+
+            <div class="row mx-md-5 px-md-5 d-flex justify-content-evenly">
+
+                <div class="col-4 col-lg-auto mt-5 mt-lg-0 text-center">
+                    <a href="/constellations/human-disease-disability"><img
+                            src="assets/img/gallery/human-disease-disability.png" style="height:300px;"/>
+                        <h4>Diseases and disabilities</h4></a>
+                </div>
+
+                <div class="col-4 col-lg-auto mt-5 mt-lg-0 text-center">
+                    <a href="/constellations/human-stress">
+                        <img src="assets/img/gallery/human-stress.png" style="height:300px;"/>
+                        <h4>Stress in humans</h4>
+                    </a>
+                </div>
+
+                <div class="col-4 col-lg-auto mt-5 mt-lg-0 text-center">
+                    <a href="/constellations/starships-and-tokens">
+                        <img src="assets/img/gallery/the-map.png" style="height:300px;"/>
+                        <h4>The civilization map (v0.1)</h4>
+                    </a>
+                </div>
+
+                <div class="col-4 col-lg-auto mt-5 mt-lg-0 text-center">
+                    <a href="/constellations/corruption">
+                        <img src="assets/img/gallery/corruption.png" style="height:300px;"/>
+                        <h4>Corruption</h4>
+                    </a>
+                </div>
+
+            </div>
+            <div class="px-xl-8 px-md-7">
+                <hr class="mt-7 text-1000"/>
+            </div>
+        </div>
+        <!-- end of .container-->
+
+    </section>
+    <!-- <section> close ============================-->
+    <!-- ============================================-->
+
+
+    <!-- ============================================-->
+    <!-- <section> begin ============================-->
+    <section>
+
+        <div class="container">
+            <h1 class="display-6 fw-semi-bold"> Features</h1>
+            <p class="fs-2">Constellapedia is on active development. This are some of the features implemented and to be
+                implemented in the near future.</p>
+            <div class="row mb-4 mt-6">
+
+                <div class="col-md-6">
+                    <div class="border rounded-1 border-700 h-100 features-items">
+                        <div class="p-5">
+                            <h3 class="pt-3 lh-base">Powerful visualizations</h3>
+                            <p class="mb-0">Constellapedia leverage the power of <a href="https://visjs.github.io/"
+                                                                                    target="_blank">VisJS</a> to
+                                render hundreds of nodes on screen without lag
+                            </p>
+                            <br/>
+                            <p class="small">progress: 100%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="border rounded-1 border-700 h-100 features-items">
+                        <div class="p-5">
+                            <h3 class="pt-3 lh-base">Crowdsourced</h3>
+                            <p class="mb-0">Constellations are created and maintained by the community. Soon
+                                Constellapedia will
+                                add user permissions and levels to manage editing of current constellations</p>
+                            <br/>
+                            <p class="small">progress: 50%</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="border rounded-1 border-700 h-100 features-items">
+                        <div class="p-5">
+                            <h3 class="pt-3 lh-base">OTSM-TRIZ based framework</h3>
+                            <p class="mb-0">Constellapedia is based on an improved version of OTSM-TRIZ.
+                                With lots of community feedback, we will fine tune the framework even more
+                            </p>
+                            <br/>
+                            <p class="small">progress: N/D</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="border rounded-1 border-700 h-100 features-items">
+                        <div class="p-5">
+                            <h3 class="pt-3 lh-base">Graph database</h3>
+                            <p class="mb-0">Because of how Constellapedia maps problems, the usage of graph
+                                database technologies makes exploring large datasets lighting fast
+                            </p>
+                            <br/>
+                            <p class="small">progress: 90%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="border rounded-1 border-700 h-100 features-items">
+                        <div class="p-5">
+                            <h3 class="pt-3 lh-base">Crowdfundable nodes</h3>
+                            <p class="mb-0">Nodes can be publicly fund with FIAT (USD/EUR). In the future with
+                                the usage of crypto token might be enforced (ERC20 and/or others)
+                            </p>
+                            <br/>
+                            <p class="small">progress: 20%</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="border rounded-1 border-700 h-100 features-items">
+                        <div class="p-5">
+                            <h3 class="pt-3 lh-base">Research tools</h3>
+                            <p class="mb-0">We are working on the making of data science tools to run graph algorithms
+                                against the data sets, for relation discovery and analysis of different perspectives.
+                            </p>
+                            <br/>
+                            <p class="small">progress: 5%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end of .container-->
+
+    </section>
+    <!-- <section> close ============================-->
+    <!-- ============================================-->
+
+
+    <!-- ============================================-->
+    <!-- <section> begin ============================-->
+    <section class="bg-secondary">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 text-center text-xl-start">
+                </div>
+                <div class="col-xl-4 pt-2 pt-xl-0">
+                </div>
+                <div class="col-xl-5 pt-2 pt-xl-0 text-center text-xl-end">
+                    <p class="mb-0">MIT LICENSE</p>
+                    <p>Made with love in Milan Italy By <a href="https://www.linkedin.com/in/domingolupo" target="_blank">Eng. Domingo Lupo</a></p>
+                </div>
+            </div>
+        </div>
+        <!-- end of .container-->
+
+    </section>
+    <!-- <section> close ============================-->
+    <!-- ============================================-->
+
+
+</main>
+<!-- ===============================================-->
+<!--    End of Main Content-->
+<!-- ===============================================-->
+
+
+<!-- ===============================================-->
+<!--    JavaScripts-->
+<!-- ===============================================-->
+<script src="vendors/@popperjs/popper.min.js"></script>
+<script src="vendors/bootstrap/bootstrap.min.js"></script>
+<script src="vendors/is/is.min.js"></script>
+<script src="vendors/swiper/swiper-bundle.min.js"></script>
+<script src="assets/js/theme.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+<script>
+    particlesJS.load('particles-js', 'assets/particles.json', function () {
+        console.log('callback - particles.js config loaded');
+    });
+</script>
+
+</body>
+
+</html>

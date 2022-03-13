@@ -22,7 +22,7 @@ new utilities.express
                 color: isProblem ? "#efb725" : "#00d500",
                 value: obj.size.toNumber(),
                 type: isProblem ? 0 : 1,
-                group: 0
+                //group: isProblem ? 0 : 1
             });
 
             return obj;

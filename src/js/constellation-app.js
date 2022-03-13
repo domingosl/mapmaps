@@ -2,6 +2,7 @@ const axios = require('axios');
 const blockingLoader = require('./blocking-loader');
 const selectNodeModal = require('../js/modals/select-node');
 const confirmModal = require('../js/modals/confirm-dialog');
+const abstractModal = require('../js/modals/abstract');
 const helpers = require('../js/helpers');
 
 import EditorJS from "@editorjs/editorjs";
@@ -124,13 +125,16 @@ angular.module('constellation', []).controller('main', async function ($scope, $
 
     $scope.addNodeEdge = (direction) => {
 
+        if(!$scope.formData.nodeTitle)
+            return abstractModal.Toast('error', "A node title must be added first");
+
         selectNodeModal.show(window.constellation, direction === 'from' ? "To node" : "From node", (node)=>{
 
             $timeout(()=>{
                 $scope.formData.nodeEdges.push({
                     from: direction === 'from' ? { name: $scope.formData.nodeTitle, id: $scope.formData.nodeId} : { id: node.id, name: node.label },
                     to: direction === 'to' ? { name: $scope.formData.nodeTitle, id: $scope.formData.nodeId} : { id: node.id, name: node.label },
-                    type: ''
+                    type: 'IMPLIES_THAT'
                 })
             });
 
@@ -148,6 +152,8 @@ angular.module('constellation', []).controller('main', async function ($scope, $
 
         blockingLoader.show();
 
+        $scope.drawPanelIsOpen = false;
+
         const response = (await axios.get(process.env.API_BASEURL + '/constellations/' + window.constellation)).data.data;
 
         const nodes = new vis.DataSet(response.nodes);
@@ -161,9 +167,13 @@ angular.module('constellation', []).controller('main', async function ($scope, $
         };
 
         let constellation;
-        const options = JSON.parse(window.options);
 
-        $scope.formData = { options };
+        if(!$scope.formData)
+            $scope.formData = {};
+
+        if(!$scope.formData.options)
+            $scope.formData = { options: JSON.parse(window.options) };
+
         $scope.formData.edgesLabel = !!$scope.formData.options.edges.font.size;
 
         constellation = new vis.Network(container, data, $scope.formData.options);

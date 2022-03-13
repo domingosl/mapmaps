@@ -8,6 +8,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+    <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet">
+
 
     <link rel="stylesheet" href="./scss/constellation.scss">
     <link rel="stylesheet" href="./scss/main.scss">
@@ -24,7 +26,7 @@
     <div id="constellation"></div>
     <div class="header">
         <h1><%= title %></h1>
-        <button class="button button" ng-click="toggleDrawOptionsPanel()">Draw Options</button>
+        <button class="button button" ng-click="toggleDrawOptionsPanel()"><i class="lni lni-menu"></i></button>
     </div>
     <% if(source.name){ %>
     <div class="source">Source: <a target="_blank"><%= source.name %></a></div>
@@ -35,14 +37,20 @@
 <div class="draw-options-hidden-panel" ng-class="{'open-panel': drawPanelIsOpen }">
 
     <div class="hidden-panel-content">
-
+        <br/>
+        <label>Draw options</label>
         <form>
             <div><input type="checkbox" ng-model="formData.options.physics.enabled"> Physics</div>
             <div><input type="checkbox" ng-model="formData.options.layout.hierarchical.enabled"> Hierarchical layout
             </div>
             <div><input type="checkbox" ng-model="formData.edgesLabel" ng-change="toggleEdgesLabel()"> Relations label
             </div>
-            <button class="button button-outline" ng-click="redrawConstellation()">Redraw</button>
+
+            <br/>
+            <div class="text-center">
+                <button class="button button-outline" ng-click="redrawConstellation()">Redraw</button>
+            </div>
+
         </form>
 
     </div>
@@ -75,7 +83,8 @@
         </div>
 
         <div ng-if="formData.nodeEdges && formData.nodeEdges.length > 0">
-            <div class="row connection animate__animated animate__bounce" ng-repeat="edge in formData.nodeEdges track by $index">
+            <div class="row connection animate__animated animate__bounce"
+                 ng-repeat="edge in formData.nodeEdges track by $index">
 
                 <div class="column column-30 elip">
                     <label>From</label>
@@ -114,7 +123,7 @@
         <div class="foot">
             <a class="button" href="#" ng-click="saveNode()">Save</a>
             <input class="button button-clear" value="Ignore changes" ng-click="closeNodeOptionsPanel()">
-            <br />
+            <br/>
             <a href="#" ng-click="deleteNode()">Delete this node</a>
         </div>
 

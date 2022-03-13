@@ -8,9 +8,9 @@ const cors = require('cors');
 const glob = require('glob');
 const path = require("path");
 
-
 const api = express();
 const app = express();
+const site = express();
 
 api.use(bodyParser.json({limit: '1mb'}));
 api.use(cors());
@@ -21,6 +21,7 @@ app.set('view engine', 'html');
 app.engine('html',require('ejs').renderFile);
 
 app.use(express.static('public'));
+site.use(express.static('site'));
 
 global.utilities = require('@growishpay/service-utilities');
 global.app = app;
@@ -57,3 +58,11 @@ require('./app/controllers/constellation');
 app.listen(process.env.APP_PORT, () => {
     utilities.logger.info("APP Server ready!", {tagLabel, port: process.env.APP_PORT});
 });
+
+site.listen(process.env.SITE_PORT, () => {
+    utilities.logger.info("SITE Server ready!", {tagLabel, port: process.env.SITE_PORT});
+});
+
+//constellapedia.com
+//app.constellapedia.com
+//api.constellapedia.com
