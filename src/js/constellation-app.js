@@ -14,7 +14,7 @@ import Delimiter from "@editorjs/delimiter";
 
 import 'animate.css';
 
-angular.module('constellation', []).controller('main', async function ($scope, $timeout) {
+angular.module('constellation', []).controller('main', [ '$scope', '$timeout' ,async function ($scope, $timeout) {
 
     blockingLoader.show();
     blockingLoader.setProgress(0);
@@ -172,7 +172,7 @@ angular.module('constellation', []).controller('main', async function ($scope, $
             $scope.formData = {};
 
         if(!$scope.formData.options)
-            $scope.formData = { options: JSON.parse(window.options) };
+            $scope.formData = { options: JSON.parse(atob(window.options)) };
 
         $scope.formData.edgesLabel = !!$scope.formData.options.edges.font.size;
 
@@ -204,5 +204,5 @@ angular.module('constellation', []).controller('main', async function ($scope, $
     draw();
 
 
-});
+}]);
 
