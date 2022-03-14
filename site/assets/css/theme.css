@@ -4875,8 +4875,8 @@ fieldset:disabled .btn {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  -ms-flex-direction: row;
+  flex-direction: row;
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
