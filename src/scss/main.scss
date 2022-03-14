@@ -37,3 +37,9 @@
   font-size: 10px;
   color: #aaa;
 }
+
+@media only screen and (max-width: 670px) {
+  .hide-on-mobile {
+    visibility: hidden;
+  }
+}

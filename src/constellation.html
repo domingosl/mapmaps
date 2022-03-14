@@ -23,9 +23,9 @@
 <div class="constellation-wrapper">
 
     <div id="constellation"></div>
-    <div class="header">
-        <h1><%= title %></h1>
-        <button class="button button" ng-click="toggleDrawOptionsPanel()"><i class="lni lni-menu"></i></button>
+    <div class="header hide-on-mobile">
+        <h1 class="elip"><%= title %></h1>
+        <button class="button" ng-click="toggleDrawOptionsPanel()"><i class="lni lni-menu"></i></button>
     </div>
     <% if(source.name){ %>
     <div class="source">Source: <a target="_blank"><%= source.name %></a></div>
