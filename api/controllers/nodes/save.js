@@ -1,8 +1,11 @@
 const dbSession = utilities.dependencyLocator.get('dbSession');
 
+const allowOnlySandboxChanges = require('../../middlewares/allow-only-sandbox-changes');
+
 new utilities.express
     .Service('saveNode')
     .isPost()
+    .setMiddlewares([allowOnlySandboxChanges])
     .respondsAt('/nodes')
     .controller(async (req, res) => {
 

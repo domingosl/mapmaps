@@ -1,9 +1,10 @@
 const dbSession = utilities.dependencyLocator.get('dbSession');
-const getNodeEdgesById = utilities.dependencyLocator.get('getNodeEdgesById');
+const allowOnlySandboxChanges = require('../../middlewares/allow-only-sandbox-changes');
 
 new utilities.express
     .Service('updateNode')
     .isPut()
+    .setMiddlewares([allowOnlySandboxChanges])
     .respondsAt('/nodes/:id')
     .controller(async (req, res) => {
 

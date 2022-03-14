@@ -106,21 +106,32 @@ angular.module('constellation', []).controller('main', [ '$scope', '$timeout' ,a
 
         blockingLoader.show();
 
-        if($scope.formData.nodeId)
-            await axios.put(process.env.API_BASEURL + '/nodes/' + $scope.formData.nodeId, {
-                name: $scope.formData.nodeTitle,
-                content: JSON.stringify(await nodeEditor.save()),
-                edges: $scope.formData.nodeEdges,
-                constellation: window.constellation
-            });
-        else
-            await axios.post(process.env.API_BASEURL + '/nodes/', {
-                name: $scope.formData.nodeTitle,
-                content: JSON.stringify(await nodeEditor.save()),
-                edges: $scope.formData.nodeEdges,
-                constellation: window.constellation,
-                type: $scope.formData.nodeType
-            });
+        try {
+            if ($scope.formData.nodeId)
+                await axios.put(process.env.API_BASEURL + '/nodes/' + $scope.formData.nodeId, {
+                    name: $scope.formData.nodeTitle,
+                    content: JSON.stringify(await nodeEditor.save()),
+                    edges: $scope.formData.nodeEdges,
+                    constellation: window.constellation
+                });
+            else
+                await axios.post(process.env.API_BASEURL + '/nodes/', {
+                    name: $scope.formData.nodeTitle,
+                    content: JSON.stringify(await nodeEditor.save()),
+                    edges: $scope.formData.nodeEdges,
+                    constellation: window.constellation,
+                    type: $scope.formData.nodeType
+                });
+        }
+        catch (e) {
+            blockingLoader.hide();
+            if(e.response && e.response.data && e.response.data.code === 403)
+                abstractModal.Alert('warning', e.response.data.message, 'Error');
+            else
+                abstractModal.Alert('warning', 'Something went wrong, please verify your inputs and try again', 'Error');
+
+            return;
+        }
 
         blockingLoader.hide();
 
@@ -132,7 +143,18 @@ angular.module('constellation', []).controller('main', [ '$scope', '$timeout' ,a
 
         confirmModal.show(async ()=>{
             blockingLoader.show();
-            await axios.delete(process.env.API_BASEURL + '/nodes/' + $scope.formData.nodeId);
+            try {
+                await axios.delete(process.env.API_BASEURL + '/nodes/' + $scope.formData.nodeId + "?constellation=" + window.constellation);
+            }
+            catch (e) {
+
+                blockingLoader.hide();
+                if(e.response && e.response.data && e.response.data.code === 403)
+                    abstractModal.Alert('warning', e.response.data.message, 'Error');
+
+                return;
+            }
+
             $scope.closeNodeOptionsPanel();
             $scope.redrawConstellation();
         });
