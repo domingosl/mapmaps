@@ -1,0 +1,65 @@
+html, body {
+
+  background: #ffffff;
+  color: #212121;
+  font-family: Montserrat, serif;
+  margin: 0;
+  padding: 0;
+
+}
+
+header {
+  width: 100%;
+  text-align: center;
+  margin-top: 100px;
+
+  img {
+    height: 50px;
+  }
+
+}
+
+.content {
+  padding: 80px 250px;
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+footer {
+  text-align: center;
+  position: relative;
+  bottom: 0;
+  background: #f9f9f9;
+  padding: 15px;
+}
+
+.disclaimer {
+  display: inline-block;
+  margin-bottom: 30px;
+  font-style: italic;
+  background: #f6f6f6;
+  padding: 10px 25px;
+  border-radius: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+#node-editor {
+
+  .codex-editor__redactor {
+    padding-bottom: 0 !important;
+  }
+
+}
+
+@media only screen and (max-width: 890px) {
+  .content {
+    padding: 80px 100px;
+  }
+}
+
+@media only screen and (max-width: 670px) {
+  .content {
+    padding: 80px 20px;
+  }
+}

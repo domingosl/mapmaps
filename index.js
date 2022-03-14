@@ -60,6 +60,7 @@ app.get('/', (req, res)=>{
 });
 
 require('./app/controllers/constellation');
+require('./app/controllers/node');
 
 app.listen(process.env.APP_PORT, () => {
     utilities.logger.info("APP Server ready!", {tagLabel, port: process.env.APP_PORT});
