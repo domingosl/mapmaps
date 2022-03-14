@@ -8,7 +8,6 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
-    <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet">
 
 
     <link rel="stylesheet" href="./scss/constellation.scss">
@@ -58,6 +57,8 @@
 
 <div class="node-options-hidden-panel" ng-class="{'open-panel': nodePanelIsOpen }">
 
+    <a class="close-modal-btn" href="#" ng-click="closeNodeOptionsPanel()"><i class="lni lni-close"></i></a>
+
     <div class="hidden-panel-content">
 
         <div ng-if="!formData.nodeId">
@@ -105,7 +106,7 @@
                     <strong>{{edge.to.name}}</strong>
                 </div>
                 <div class="column column-10 text-right delete">
-                    <a href="#" ng-click="removeEdge($index)">X</a>
+                    <a href="#" ng-click="removeEdge($index)"><i class="lni lni-close"></i></a>
                 </div>
 
 
@@ -144,6 +145,7 @@
 <link rel="stylesheet" href="../node_modules/@sweetalert2/theme-dark/dark.css">
 <link rel="stylesheet" href="../node_modules/noty/lib/noty.css">
 <link rel="stylesheet" href="../node_modules/noty/lib/themes/sunset.css">
+<link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"
         integrity="sha512-7oYXeK0OxTFxndh0erL8FsjGvrl2VMDor6fVqzlLGfwOQQqTbYsGPv4ZZ15QHfSk80doyaM0ZJdvkyDcVO7KFA=="

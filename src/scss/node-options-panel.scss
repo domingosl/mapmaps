@@ -15,6 +15,12 @@
     left: 0;
   }
 
+  .close-modal-btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
+
   .hidden-panel-content {
     padding: 80px 250px;
     max-width: 1150px;
