@@ -26,6 +26,7 @@
     "ejs": "^3.1.6",
     "express": "^4.17.3",
     "glob": "^7.2.0",
+    "gwapiv2-node-client": "git+https://github.com/Growish/gw-api-v2-node-client.git",
     "neo4j-driver": "^4.4.3",
     "noty": "^3.2.0-beta-deprecated",
     "sweetalert2": "^11.4.4"

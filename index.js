@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const tagLabel = 'APIEntryPoint';
+const GwApiV2 = require("gwapiv2-node-client");
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -11,6 +12,8 @@ const path = require("path");
 const api = express();
 const app = express();
 const site = express();
+
+global.gwApi = new GwApiV2(process.env.NODE_ENV, 'test', process.env.GW_BA_USER, process.env.GW_BA_PASSWORD);
 
 api.use(bodyParser.json({limit: '1mb'}));
 api.use(cors());
@@ -45,7 +48,10 @@ for(const pattern of patterns) {
 api.use('*', (req, res) => res.notFound());
 
 
-api.listen(process.env.API_PORT, () => {
+api.listen(process.env.API_PORT, async () => {
+    await gwApi.Domain.read();
+    utilities.logger.info("Connection with GrowishPay API v2 OK", {tagLabel});
+
     utilities.logger.info("API Server ready!", {tagLabel, port: process.env.API_PORT});
 });
 
