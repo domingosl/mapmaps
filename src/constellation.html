@@ -38,19 +38,25 @@
     <div class="hidden-panel-content">
         <br/>
         <label>Draw options</label>
-        <form>
-            <div><input type="checkbox" ng-model="formData.options.physics.enabled"> Physics</div>
-            <div><input type="checkbox" ng-model="formData.options.layout.hierarchical.enabled"> Hierarchical layout
-            </div>
-            <div><input type="checkbox" ng-model="formData.edgesLabel" ng-change="toggleEdgesLabel()"> Relations label
-            </div>
 
-            <br/>
-            <div class="text-center">
-                <button class="button button-outline" ng-click="redrawConstellation()">Redraw</button>
-            </div>
+        <div><input type="checkbox" ng-model="formData.options.physics.enabled"> Physics</div>
+        <div><input type="checkbox" ng-model="formData.options.layout.hierarchical.enabled"> Hierarchical layout
+        </div>
+        <div><input type="checkbox" ng-model="formData.edgesLabel" ng-change="toggleEdgesLabel()"> Relations label
+        </div>
 
-        </form>
+        <br/>
+        <div class="text-center">
+            <button class="button button-outline" ng-click="redrawConstellation()">Redraw</button>
+            <p class="small-text">some draw options are still experimental</p>
+        </div>
+
+
+        <label>Export data</label>
+        <a href="#" ng-click="snapshot()">Snapshot PNG</a><br />
+        <a href="#" ng-click="jsonExport()">Constellation to JSON</a><br />
+        <a href="#" ng-click="forkConstellation()">Fork constellation</a>
+
 
     </div>
 </div>

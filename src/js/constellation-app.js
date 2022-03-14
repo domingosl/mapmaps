@@ -29,6 +29,25 @@ angular.module('constellation', []).controller('main', [ '$scope', '$timeout' ,a
 
     let nodeEditor;
 
+    $scope.snapshot = () => {
+        const canvas = document.getElementsByTagName('canvas')[0];
+        const image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+        const link = document.createElement('a');
+        link.download = "constellapedia-snapshot.png";
+        link.href = image;
+        link.click();
+    }
+
+    $scope.jsonExport = () => {
+        blockingLoader.show();
+        window.location = process.env.API_BASEURL + '/constellations/' + window.constellation + "?download=json";
+        blockingLoader.hide();
+    }
+
+    $scope.forkConstellation = () => {
+        abstractModal.Alert("info", "We are still in this feature, stay tuned!", "Work in progress!");
+    }
+
     $scope.closeNodeOptionsPanel = () => {
         $scope.nodePanelIsOpen = false;
         nodeEditor.destroy();

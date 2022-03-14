@@ -49,6 +49,13 @@ new utilities.express
             return obj;
         }));
 
-        res.resolve({ nodes, edges });
+        if(req.query.download && req.query.download === 'json')
+        {
+            res.setHeader('Content-disposition', 'attachment; filename= constellation.json');
+            res.setHeader('Content-type', 'application/json');
+            res.send( JSON.stringify({ nodes, edges }) );
+        }
+        else
+            res.resolve({ nodes, edges });
 
     });
