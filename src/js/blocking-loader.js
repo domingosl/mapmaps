@@ -27,8 +27,10 @@ class BlockingLoader {
 
     hide() {
         this.el.style.display = "none";
-        this.progressEl.style.display = "none";
-        this.progressEl.innerHTML = "";
+        if(this.progressEl) {
+            this.progressEl.style.display = "none";
+            this.progressEl.innerHTML = "";
+        }
     }
 
     setProgress(number) {

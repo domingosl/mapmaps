@@ -6,6 +6,8 @@ import Delimiter from "@editorjs/delimiter";
 import Table from "@editorjs/table";
 
 const blockingLoader = require('./blocking-loader');
+const donateWithCardModal = require('./modals/donate-with-card');
+const abstractModal = require('./modals/abstract');
 
 angular.module('node', []).controller('main', [ '$scope', '$timeout' ,async function ($scope, $timeout) {
 
@@ -15,7 +17,7 @@ angular.module('node', []).controller('main', [ '$scope', '$timeout' ,async func
     $scope.formData = { node: JSON.parse(atob(window.nodeData)) };
 
     $scope.formData.node.content = JSON.parse($scope.formData.node.content);
-    console.log($scope.formData);
+
 
     const nodeEditor = new EditorJS({
         autofocus: false,
@@ -33,5 +35,19 @@ angular.module('node', []).controller('main', [ '$scope', '$timeout' ,async func
             table: Table
         }
     });
+
+
+    $scope.donate = (amount) => {
+        donateWithCardModal.show(amount);
+    }
+
+    const queryParams = new Proxy(new URLSearchParams(window.location.search), {
+        get: (searchParams, prop) => searchParams.get(prop),
+    });
+
+    if(queryParams.from_transaction === "true") {
+        //TODO: Needs check of the outcome
+        abstractModal.Toast("info", "Thank you for your donation!", 10000);
+    }
 
 }]);
