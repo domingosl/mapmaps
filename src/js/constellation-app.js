@@ -3,6 +3,7 @@ const blockingLoader = require('./blocking-loader');
 const selectNodeModal = require('../js/modals/select-node');
 const confirmModal = require('../js/modals/confirm-dialog');
 const abstractModal = require('../js/modals/abstract');
+const constellationTutModal = require('../js/modals/constellation-tut');
 const helpers = require('../js/helpers');
 
 import EditorJS from "@editorjs/editorjs";
@@ -188,6 +189,7 @@ angular.module('constellation', []).controller('main', [ '$scope', '$timeout' ,a
 
         constellation.once("afterDrawing", function () {
             blockingLoader.hide();
+            constellationTutModal.show();
         });
 
 
