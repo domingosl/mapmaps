@@ -1,6 +1,6 @@
 const constellations = {
     world: {
-        title: "The world map of humanity problems",
+        title: "Sandbox",
         source: {name: null, url: null},
         options: require('../constellation-defaults/world')
     },
