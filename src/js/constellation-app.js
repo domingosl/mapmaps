@@ -230,7 +230,12 @@ angular.module('constellation', []).controller('main', [ '$scope', '$timeout' ,a
 
         constellation.once("afterDrawing", function () {
             blockingLoader.hide();
-            constellationTutModal.show();
+
+            const isSmall = window.matchMedia ?
+                window.matchMedia("screen and (max-width: 480px)") :
+                screen.width<=670;
+
+            !isSmall.matches && constellationTutModal.show();
         });
 
 
