@@ -47,7 +47,7 @@ app.get('/constellations/:name', (req, res) => {
         constellation: req.params.name,
         title: constellation.title,
         source: constellation.source,
-        options: btoa(JSON.stringify(constellation.options))
+        options: Buffer.from(JSON.stringify(constellation.options)).toString('base64')
 
     });
 });
