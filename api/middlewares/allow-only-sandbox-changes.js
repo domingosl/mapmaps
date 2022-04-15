@@ -3,7 +3,7 @@ module.exports = (req, res, next) => {
     if(req.query.constellation && (req.query.constellation === 'world' || req.query.constellation === 'longevity'))
         return next();
 
-    if(req.body.constellation === 'world')
+    if(req.body.constellation === 'world' || req.body.constellation === 'longevity')
         return next();
 
     return res.forbidden("Sorry, but modifications to featured constellations are not " +
