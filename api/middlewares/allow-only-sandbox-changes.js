@@ -1,6 +1,6 @@
 module.exports = (req, res, next) => {
 
-    if(req.query.constellation && req.query.constellation === 'world')
+    if(req.query.constellation && (req.query.constellation === 'world' || req.query.constellation === 'longevity'))
         return next();
 
     if(req.body.constellation === 'world')
