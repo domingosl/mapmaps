@@ -17,6 +17,14 @@ const constellations = {
         },
         options: require('../constellation-defaults/stress-humans')
     },
+    "longevity": {
+        title: "Longevity Tech Tree",
+        source: {
+            name: "Foresight",
+            url: "https://foresight.org/wp-content/uploads/2021/11/Longevity-Tech-Tree-2021-12-01.pdf"
+        },
+        options: require('../constellation-defaults/stress-humans')
+    },
     "corruption": {
         title: "Corruption",
         source: {
